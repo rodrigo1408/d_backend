@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
- 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -12,10 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity(name = "USUARIO")
-public class UsuarioEntity {
-	
-	@Id 
+@Entity(name = "PRODUTO")
+public class ProdutoEntity {
+
+	@Id
 	@GeneratedValue
 	@Column(name = "ID")
 	Integer id;
@@ -23,17 +22,14 @@ public class UsuarioEntity {
 	@Column(name = "NOME")
 	String nome;
 	
-	@Column(name = "CPF")
-	String cpf;
-	
-	@Column(name = "SENHA")
-	String senha;
+	@Column(name = "PRECO")
+	Double preco;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ENDERECO_ID")
-	EnderecoEntity endereco;
+	@JoinColumn(name = "CATEGORIA_ID")
+	CategoriaEntity categoriaEntity;
 
-	public UsuarioEntity() {
+	public ProdutoEntity() {
 	}
 	
 	public Integer getId() {
@@ -52,39 +48,30 @@ public class UsuarioEntity {
 		this.nome = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
-	public String getSenha() {
-		return senha;
+	public CategoriaEntity getCategoriaEntity() {
+		return categoriaEntity;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public EnderecoEntity getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(EnderecoEntity endereco) {
-		this.endereco = endereco;
+	public void setCategoriaEntity(CategoriaEntity categoriaEntity) {
+		this.categoriaEntity = categoriaEntity;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((categoriaEntity == null) ? 0 : categoriaEntity.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
 		return result;
 	}
 
@@ -96,16 +83,11 @@ public class UsuarioEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UsuarioEntity other = (UsuarioEntity) obj;
-		if (cpf == null) {
-			if (other.cpf != null)
+		ProdutoEntity other = (ProdutoEntity) obj;
+		if (categoriaEntity == null) {
+			if (other.categoriaEntity != null)
 				return false;
-		} else if (!cpf.equals(other.cpf))
-			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
-				return false;
-		} else if (!endereco.equals(other.endereco))
+		} else if (!categoriaEntity.equals(other.categoriaEntity))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -117,19 +99,20 @@ public class UsuarioEntity {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (senha == null) {
-			if (other.senha != null)
+		if (preco == null) {
+			if (other.preco != null)
 				return false;
-		} else if (!senha.equals(other.senha))
+		} else if (!preco.equals(other.preco))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "UsuarioEntity [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + ", endereco="
-				+ endereco + "]";
+		return "ProdutoEntity [id=" + id + ", nome=" + nome + ", preco=" + preco + ", categoriaEntity="
+				+ categoriaEntity + "]";
 	}
+	
 	
 	
 }
