@@ -12,8 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity(name = "USUARIO")
-public class UsuarioEntity {
+@Entity(name = "CLIENTE")
+public class ClienteEntity {
 	
 	@Id 
 	@GeneratedValue
@@ -33,7 +33,7 @@ public class UsuarioEntity {
 	@JoinColumn(name = "ENDERECO_ID")
 	EnderecoEntity endereco;
 
-	public UsuarioEntity() {
+	public ClienteEntity() {
 	}
 	
 	public Integer getId() {
@@ -96,7 +96,7 @@ public class UsuarioEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UsuarioEntity other = (UsuarioEntity) obj;
+		ClienteEntity other = (ClienteEntity) obj;
 		if (cpf == null) {
 			if (other.cpf != null)
 				return false;

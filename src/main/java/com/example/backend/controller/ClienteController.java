@@ -9,31 +9,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.business.UsuarioBusiness;
-import com.example.backend.entity.UsuarioEntity;
+import com.example.backend.business.ClienteBusiness;
+import com.example.backend.entity.ClienteEntity;
 
 @RestController
-@RequestMapping(value = "/usuario")
-public class UsuarioController {
+@RequestMapping(value = "/cliente")
+public class ClienteController {
 	
 	@Autowired
-	UsuarioBusiness usuarioBusiness;
+	ClienteBusiness clienteBusiness;
 	
 	@GetMapping
 	@RequestMapping(value = "/{id}")
-	public UsuarioEntity get(@PathVariable(value = "id") Integer id) {
-		return usuarioBusiness.findById(id);
+	public ClienteEntity get(@PathVariable(value = "id") Integer id) {
+		return clienteBusiness.findById(id);
 	}
 	
 	@GetMapping
 	@RequestMapping(value = "/listar")
-	public List<UsuarioEntity> get(){
-		return usuarioBusiness.findAll();
+	public List<ClienteEntity> get(){
+		return clienteBusiness.findAll();
 	}
 	
 	@PostMapping
 	@RequestMapping(value = "/adicionar")
-	public UsuarioEntity post(UsuarioEntity usuarioEntity){
-		return usuarioBusiness.save(usuarioEntity);
+	public ClienteEntity post(ClienteEntity usuarioEntity){
+		return clienteBusiness.save(usuarioEntity);
 	}
 }
