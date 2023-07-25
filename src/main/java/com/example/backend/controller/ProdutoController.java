@@ -3,9 +3,11 @@ package com.example.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,21 +23,31 @@ public class ProdutoController {
 	 ProdutoBusiness produtoBusiness;
 	 
 	 @GetMapping
-	 @RequestMapping(value = "/{id}")
-	 public ProdutoEntity get(@PathVariable(value = "id") Integer id) {
-		 return produtoBusiness.findById(id);
-	 }
+	 @RequestMapping(value = "/{id}") 
+		public ResponseEntity<ProdutoEntity> buscarPeloId(@PathVariable Long id) {
+
+	     //Se nao encontrar um produto com o ID passado como parametro, retorna um 404 NOT FOUND
+		 ProdutoEntity produtoEntity = produtoBusiness.buscarPeloId(id);
+
+			return ResponseEntity.ok().body(produtoEntity);
+		}
 	 
 	 @GetMapping
 	 @RequestMapping(value = "/listar")
 	 public List<ProdutoEntity> get(){
-		 return produtoBusiness.findAll();
+		 return produtoBusiness.listar();
 	 }
 	 
 	 @PostMapping
 	 @RequestMapping(value = "/adicionar")
 	 public ProdutoEntity post(ProdutoEntity produtoEntity) {
 		 return produtoBusiness.save(produtoEntity);
+	 }
+	 
+	 @PutMapping
+	 @RequestMapping(value = "/atualizar")
+	 public ProdutoEntity put(ProdutoEntity produtoEntity) {
+		 return produtoBusiness.atualizar(produtoEntity);
 	 }
 
 }

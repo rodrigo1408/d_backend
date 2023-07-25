@@ -31,6 +31,14 @@ public class PedidoController {
 	
 	@PostMapping(value = "/adicionar")
 	public PedidoEntity post(PedidoEntity pedidoEntity) {
+		/* Calculo do desconto encima do valor bruto */
+		Double desconto = pedidoEntity.getValor() * (pedidoEntity.getDesconto() / 100);
+		
+		Double valorFinal = pedidoEntity.getValor();
+		
+		//colocar somente duas casas decimal nesse metodo
+		pedidoEntity.setValor(desconto - valorFinal);
+		
 		return pedidoBusiness.save(pedidoEntity);
 	}
 }

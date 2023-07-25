@@ -1,42 +1,48 @@
 package com.example.backend.entity;
 
+import java.io.Serializable;
+
+import com.example.backend.enums.CategoriaEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Id; 
+import jakarta.persistence.Table;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity(name = "PRODUTO")
-public class ProdutoEntity {
+@Entity
+@Table(name = "PRODUTO")
+public class ProdutoEntity implements Serializable{
+ 
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	Integer id;
+	private Long id;
 	
 	@Column(name = "NOME")
-	String nome;
+	private String nome;
 	
 	@Column(name = "PRECO")
-	Double preco;
+	private Double preco;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CATEGORIA_ID")
-	CategoriaEntity categoriaEntity;
-
+	@Enumerated(EnumType.STRING)
+	@Column(name = "categoria")
+	private CategoriaEnum categoriaEnum;
+	
 	public ProdutoEntity() {
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -55,23 +61,21 @@ public class ProdutoEntity {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+ 
 
-	public CategoriaEntity getCategoriaEntity() {
-		return categoriaEntity;
+	public CategoriaEnum getCategoriaEnum() {
+		return categoriaEnum;
 	}
 
-	public void setCategoriaEntity(CategoriaEntity categoriaEntity) {
-		this.categoriaEntity = categoriaEntity;
+	public void setCategoriaEnum(CategoriaEnum categoriaEnum) {
+		this.categoriaEnum = categoriaEnum;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((categoriaEntity == null) ? 0 : categoriaEntity.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
 		return result;
 	}
 
@@ -84,35 +88,11 @@ public class ProdutoEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		ProdutoEntity other = (ProdutoEntity) obj;
-		if (categoriaEntity == null) {
-			if (other.categoriaEntity != null)
-				return false;
-		} else if (!categoriaEntity.equals(other.categoriaEntity))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (preco == null) {
-			if (other.preco != null)
-				return false;
-		} else if (!preco.equals(other.preco))
-			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ProdutoEntity [id=" + id + ", nome=" + nome + ", preco=" + preco + ", categoriaEntity="
-				+ categoriaEntity + "]";
-	}
-	
-	
-	
+	}  
 }

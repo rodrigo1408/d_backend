@@ -8,4 +8,8 @@ import com.example.backend.entity.ProdutoEntity;
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Integer>{
 
+	ProdutoEntity findOne(Long id);
+
+	void delete(Long id);
+
 }

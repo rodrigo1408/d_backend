@@ -1,67 +1,78 @@
 package com.example.backend.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import com.example.backend.enums.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
-@Entity(name = "PEDIDO")
-public class PedidoEntity {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Entity
+@Table(name = "PEDIDO")
+public class PedidoEntity implements Serializable{ 
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	Integer id;
+	private Long id;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLIENTE_ID")
-	ClienteEntity clienteEntity;
+	private ClienteEntity clienteEntity;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PRODUTO_ID")
-	ProdutoEntity produtoEntity;
+	private ProdutoEntity produtoEntity;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ENDERECO_ID")
-	EnderecoEntity enderecoEntity;
+	private EnderecoEntity enderecoEntity;
 	
 	@Column(name = "ENTREGA")
-	Boolean entrega;
+	private Boolean entrega;
 	
 	@Column(name = "DESCONTO")
-	Double desconto;
+	private Double desconto;
 	
 	@Column(name = "TAXA_ENTREGA")
-	Double taxaEntrega;
+	private Double taxaEntrega;
 	
 	@Column(name = "VALOR")
-	Double valor;
+	private Double valor;
 	
 	@Column(name = "DATA")
-	Date data;
+	private Date data;
 
 	@Column(name = "QUANTIDADE")
-	Long quantidade;
+	private Long quantidade;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STATUS_ID")
-	StatusEntity statusEntity;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "STATUS")
+	private StatusEnum statusEnum;
 
 	
 	public PedidoEntity() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -127,15 +138,7 @@ public class PedidoEntity {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public StatusEntity getStatusEntity() {
-		return statusEntity;
-	}
-
-	public void setStatusEntity(StatusEntity statusEntity) {
-		this.statusEntity = statusEntity;
-	}
+	} 
 
 	public Long getQuantidade() {
 		return quantidade;
@@ -145,11 +148,36 @@ public class PedidoEntity {
 		this.quantidade = quantidade;
 	}
 
+	public StatusEnum getStatusEnum() {
+		return statusEnum;
+	}
+
+	public void setStatusEnum(StatusEnum statusEnum) {
+		this.statusEnum = statusEnum;
+	}
+
 	@Override
-	public String toString() {
-		return "PedidoEntity [id=" + id + ", clienteEntity=" + clienteEntity + ", produtoEntity=" + produtoEntity
-				+ ", enderecoEntity=" + enderecoEntity + ", entrega=" + entrega + ", desconto=" + desconto
-				+ ", taxaEntrega=" + taxaEntrega + ", valor=" + valor + ", data=" + data + ", quantidade=" + quantidade
-				+ ", statusEntity=" + statusEntity + "]";
-	}	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PedidoEntity other = (PedidoEntity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	} 
 }
