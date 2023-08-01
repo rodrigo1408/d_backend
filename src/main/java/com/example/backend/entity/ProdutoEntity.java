@@ -11,11 +11,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id; 
-import jakarta.persistence.Table;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
-@Table(name = "PRODUTO")
+@Entity(name = "PRODUTO")
 public class ProdutoEntity implements Serializable{
  
 	private static final long serialVersionUID = 1L;
@@ -23,7 +21,7 @@ public class ProdutoEntity implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 	
 	@Column(name = "NOME")
 	private String nome;
@@ -32,17 +30,17 @@ public class ProdutoEntity implements Serializable{
 	private Double preco;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "categoria")
+	@Column(name = "CATEGORIA")
 	private CategoriaEnum categoriaEnum;
 	
 	public ProdutoEntity() {
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -15,12 +15,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToOne; 
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
-@Table(name = "PEDIDO")
+@Entity(name = "PEDIDO")
 public class PedidoEntity implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
